@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Sign Up 
+{% endblock title %}
+{% block content %}
+    <h1>Please Register </h1>
+    <form method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type='submit' value='Register'>
+    </form>
+
+    
+    <a href="{% url 'home:home' %}">Back</a>
+{% endblock content %}
+

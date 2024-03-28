@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Search result page
+{% endblock title %}
+
+
+
+{% block menu %}
+<a href="{% url 'home:home' %}" class="nav-item nav-link">Home</a>
+    {% for categor in kategoriyalar %}
+        <a href="{% url 'home:category_list' categor.id %}" class="nav-item nav-link {% if categor.id == ctg.id %} active {% endif %}">{{ categor.name }}</a>
+    {% endfor %}
+
+        <a href="{% url 'home:contact' %}" class="nav-item nav-link">Contact Us</a>
+    
+{% endblock menu %}
+
+
+{% block content %}
+<div class="container">
+    {% for new in searchnews %}
+        <a href="{% url 'home:detail' new.id %}"><h3> {{ new.title }} </h3></a>
+        <h3>{{new.body|safe|truncatewords:50|linebreaks}}</h3>
+        <img src="{{ new.image.url }}" alt="image" style="width: 600px; height: 400px;">
+    {% endfor %}
+</div>
+{% endblock content %}

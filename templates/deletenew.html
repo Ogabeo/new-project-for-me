@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Delete Page
+{% endblock title %}
+{% block content %}
+    <div class="container">
+    <h1>Do you really want to delete this post permanently?... </h1>
+    {{ data.title }}
+    <br>
+    <img src="{{ data.image.url }}" alt="image" style="width: 400px; height: 300px;">
+    <br>
+    <button type="button" class="btn btn-danger"><a href="{% url 'home:delete' data.id %}">Delete</a></button>
+    <button type="button" class="btn btn-info"><a href="{% url 'home:home' %}"> Back </a></button>
+    </div>
+{% endblock content %}
+

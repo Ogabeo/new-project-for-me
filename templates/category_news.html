@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+category news
+{% endblock title %}
+
+
+
+{% block menu %}
+<a href="{% url 'home:home' %}" class="nav-item nav-link">Home</a>
+    {% for categor in kategoriyalar %}
+        <a href="{% url 'home:category_list' categor.id %}" class="nav-item nav-link ">{{ categor.name }}</a>
+    {% endfor %}
+
+        <a href="{% url 'home:contact' %}" class="nav-item nav-link">Contact Us</a>
+    
+{% endblock menu %}
+
+
+{% block content %}
+<div class="container">
+    <h1 style="color:blue">{{ ctg.name }}</h1>
+    {% for new in categorynew %}
+        <a href="{% url 'home:detail' new.id %}"><h1 >{{ new.title }}</h1>
+        <img src="{{ new.image.url }}" style="width: 600px; height: 400px; "/>
+    </a>
+        <br>
+        <br>
+
+    {% endfor %}
+</div>    
+</div>
+{% endblock content %}

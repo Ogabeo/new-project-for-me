@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Profile data 
+{% endblock title %}
+{% block content %}
+    <h1> profile data</h1>
+    {% if user.avatar %}
+        <img src="{{user.avatar.url}}" alt="Profile picture" style="width:200px; height: 200px; border-radius: 50%;">
+        <p>username: {{ user.username }}</p>
+    {% endif %} 
+    <p>first name: {{ user.first_name }}</p>
+    <p>email : {{ user.email }}</p>
+    <p>Phone number: {{ user.phone }}</p>
+    <p>last name: {{ user.last_name }}</p>
+    <p>Joined: {{ user.date_joined }}</p>
+
+    <a href="{% url 'accounts:update' %}">Update</a>
+
+    <a href="{% url 'home:home' %}">Back</a>
+
+{% endblock content %}
+
+
+

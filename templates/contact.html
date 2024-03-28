@@ -1,0 +1,93 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+contact
+{% endblock title %}
+
+{% block menu %}
+<a href="{% url 'home:home' %}" class="nav-item nav-link">Home</a>
+    {% for categor in kategoriyalar %}
+        <a href="{% url 'home:category_list' categor.id %}" class="nav-item nav-link">{{categor.name}}</a>
+    {% endfor %}
+
+        <a href="{% url 'home:contact' %}" class="nav-item nav-link active">Contact Us</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'accounts:logout' %}" class="nav-item nav-link">Log out</a>
+        <a href="{% url 'home:newcreate' %}" class="nav-item nav-link">Add new</a>
+
+    {% else %}
+        <a href="{% url 'accounts:login' %}" class="nav-item nav-link">Log in</a>
+    {% endif %}
+{% endblock menu %}
+
+
+
+{% block content %}      
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Contact</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        
+        <!-- Contact Start -->
+        <div class="contact">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <div class="form">
+                            <form method='POST'>
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <input type="text" class="form-control" name="name" placeholder="Your Name" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="email" class="form-control" name="email" placeholder="Your Email" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="subject"  placeholder="Subject" />
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="5" name="message" placeholder="Message"></textarea>
+                                </div>
+                                <div><button class="btn" type="submit">Send Message</button></div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="map">
+                            <iframe src="" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contact-info">
+                            <h3>Get in Touch</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit finibus.
+                            </p>
+                            <h4><i class="fa fa-map-marker"></i></h4>
+                            <h4><i class="fa fa-envelope"></i></h4>
+                            <h4><i class="fa fa-phone"></i></h4>
+                            <div class="social">
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-facebook"></i></a>
+                                <a href=""><i class="fab fa-linkedin"></i></a>
+                                <a href=""><i class="fab fa-instagram"></i></a>
+                                <a href=""><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contact End -->
+{% endblock content %}  

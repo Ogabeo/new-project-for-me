@@ -1,0 +1,401 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+home
+{% endblock title %}
+
+
+{% block menu %}
+<a href="{% url 'home:home' %}" class="nav-item nav-link active">Home</a>
+    {% for categor in kategoriyalar %}
+        <a href="{% url 'home:category_list' categor.id %}" class="nav-item nav-link">{{categor.name}}</a>
+    {% endfor %}
+
+        <a href="{% url 'home:contact' %}" class="nav-item nav-link">Contact Us</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'accounts:logout' %}" class="nav-item nav-link">Log out</a>
+        <a href="{% url 'home:newcreate' %}" class="nav-item nav-link">Add new</a>
+
+    {% else %}
+        <a href="{% url 'accounts:login' %}" class="nav-item nav-link">Log in</a>
+    {% endif %}
+{% endblock menu %}
+
+
+{% block content %}
+        <!-- Top News Start-->
+        <div class="top-news">
+            <div class="container-fluid">
+                <div class="row">
+                    {% for lastest_new in lastest_news %}
+                            
+                        {% if forloop.counter == 1 %}
+                            <div class="col-md-6 tn-left">
+                                <div class="tn-img">
+                                    <img src="{{ lastest_new.image.url }}" />
+                                    <div class="tn-content">
+                                        <div class="tn-content-inner">
+                                            <i class="far fa-clock">{{ lastest_new.created_At }}</i>
+                                            <a class="tn-title" href="{% url 'home:detail' lastest_new.id %}">{{ lastest_new.title }}</a>
+                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    
+                    <div class="col-md-6 tn-right">
+                        <div class="row">
+                        {% for lastest_new in lastest_news %}
+                            
+                            {% if forloop.counter != 1 %}
+                                <div class="col-md-6">
+                                    <div class="tn-img">
+                                        <img src="{{ lastest_new.image.url }}" />
+                                        <div class="tn-content">
+                                            <div class="tn-content-inner">
+                                                <a class="tn-date" href=""><i class="far fa-clock"></i>{{ lastest_new.updated_at }}</a>
+                                                <a class="tn-title" href="{% url 'home:detail' lastest_new.id %}">{{ lastest_new.title }}</a>
+                                                <h1>{{ lastest_new.views }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Top News End-->
+
+
+        <!-- Category News Start-->
+        <div class="cat-news">
+            <div class="container-fluid">
+                <div class="row">
+
+
+
+                    <div class="col-md-6">
+                        <h2><i class="fas fa-align-justify"></i>Sports</h2>
+                        <div class="row cn-slider">
+                            {% for global in sports %}
+                            
+                            <div class="col-md-6">
+                                <div class="cn-img">
+                                    <img src="{{ global.image.url }}" />
+                                    <div class="cn-content">
+                                        <div class="cn-content-inner">
+                                            <a class="cn-date" href=""><i class="far fa-clock"></i>{{ global.updated_at }}</a>
+                                            <a class="cn-title" href="{% url 'home:detail' global.id %}">{{ global.title }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <h2><i class="fas fa-align-justify"></i>Technology</h2>
+                        <div class="row cn-slider">
+                            {% for tech in technology %}
+                            
+                            <div class="col-md-6">
+                                <div class="cn-img">
+                                    <img src="{{ tech.image.url }}" />
+                                    <div class="cn-content">
+                                        <div class="cn-content-inner">
+                                            <a class="cn-date" href=""><i class="far fa-clock"></i>{{tech.updated_at}}</a>
+                                            <a class="cn-title" href="{% url 'home:detail' tech.id %}">{{tech.title}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-6">
+                        <h2><i class="fas fa-align-justify"></i>Jahon yangiliklari</h2>
+                        <div class="row cn-slider">
+                            {% for new_new in global_news %}
+                            
+                            <div class="col-md-6">
+                                <div class="cn-img">
+                                    <img src="{{ new_new.image.url }}" />
+                                    <div class="cn-content">
+                                        <div class="cn-content-inner">
+                                            <a class="cn-date" href=""><i class="far fa-clock"></i>{{new_new.updated_at}}</a>
+                                            <a class="cn-title" href="{% url 'home:detail' new_new.id %}">{{new_new.title}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+                    
+                    <div class="col-md-6">
+                        <h2><i class="fas fa-align-justify"></i>Entertainment</h2>
+                        <div class="row cn-slider">
+                            {% for enter in entertainment %}
+                            
+                            <div class="col-md-6">
+                                <div class="cn-img">
+                                    <img src="{{ enter.image.url }}" />
+                                    <div class="cn-content">
+                                        <div class="cn-content-inner">
+                                            <a class="cn-date" href=""><i class="far fa-clock"></i>{{enter.updated_at}}</a>
+                                            <a class="cn-title" href="{% url 'home:detail' enter.id %}">{{enter.title}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-6">
+                        <h2><i class="fas fa-align-justify"></i>Kundalik Hayot</h2>
+                        <div class="row cn-slider">
+                            {% for day in kundalik %}
+                            
+                            <div class="col-md-6">
+                                <div class="cn-img">
+                                    <img src="{{ day.image.url }}" />
+                                    <div class="cn-content">
+                                        <div class="cn-content-inner">
+                                            <a class="cn-date" href=""><i class="far fa-clock"></i>{{day.updated_at}}</a>
+                                            <a class="cn-title" href="{% url 'home:detail' day.id %}">{{day.title}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-6">
+                        <h2><i class="fas fa-align-justify"></i>Business</h2>
+                        <div class="row cn-slider">
+                            {% for tech in business %}
+                            
+                            <div class="col-md-6">
+                                <div class="cn-img">
+                                    <img src="{{ tech.image.url }}" />
+                                    <div class="cn-content">
+                                        <div class="cn-content-inner">
+                                            <a class="cn-date" href=""><i class="far fa-clock"></i>{{tech.updated_at}}</a>
+                                            <a class="cn-title" href="{% url 'home:detail' tech.id %}">{{tech.title}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Category News End-->
+
+
+
+
+        <!-- Main News Start-->
+        <div class="main-news">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2><i class="fas fa-align-justify"></i>Latest News</h2>
+                                <div class="row">
+
+                                    {% for songi in songiyangiliklar %}
+                                        {% if forloop.counter == 1 %}
+
+                                            <div class="col-lg-6">
+                                                <div class="mn-img">
+                                                    <img src="{{ songi.image.url }}" />
+                                                </div>
+                                                <div class="mn-content">
+                                                    <a class="mn-title" href="{% url 'home:detail' songi.id %}">{{ songi.title }}</a>
+                                                    
+                                                    <a class="mn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
+                                                    <table style="width: 30px; height: 100px;">
+                                                    <p>
+                                                        {{songi.body|safe|truncatewords:50|linebreaks }}
+                                                    </p>
+                                                    </table>
+                                                    
+                                                </div>
+                                            </div>
+
+                                        {% endif %}
+                                    {% endfor %}
+
+
+                                    <div class="col-lg-6">
+
+
+
+                                    {% for songi in songiyangiliklar %}
+                                        {% if forloop.counter != 1 %}
+                                    
+
+                                            <div class="mn-list">
+                                                <div class="mn-img">
+                                                    <a href="{% url 'home:detail' songi.id %}"><img src="{{ songi.image.url }}"  /></a>
+                                                </div>
+                                                <div class="mn-content">
+                                                    <h5>views: {{ songi.views }} </h5>
+                                                    <b><a class="mn-title" href="{% url 'home:detail' songi.id %}">{{ songi.title|linebreaks }}</a></b>
+                                                    <h6>views: {{ songi.views }} </h6>
+                                                    <a class="mn-date" href=""><i class="far fa-clock"></i>05-Feb-2020</a>
+                                                </div>
+                                            </div>
+
+                                        {% endif %}
+                                    {% endfor %}
+
+
+                                     
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <h2><i class="fas fa-align-justify"></i>Popular News</h2>
+                                <div class="row">
+
+
+                                {% for new in famous %}
+                                    {% if forloop.counter == 1 %}
+                                        <div class="col-lg-6">
+                                            <div class="mn-img">
+                                               <a href="{% url 'home:detail' new.id %}"><img src="{{ new.image.url }}" /></a> 
+                                            </div>
+                                            <div class="mn-content">
+                                                <a class="mn-title" href="{% url 'home:detail' new.id %}">{{ new.title }}</a>
+                                                <h6><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                                  </svg>
+                                                : {{ new.views }} </h6>
+                                                <i class="far fa-clock"> {{ new.created_At|date:"M/d" }} </i>
+                                                <p>
+                                                    {{ new.body| safe|slice:"150"}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+
+                                
+                                    <div class="col-lg-6">
+
+                                    {% for new in famous %}
+                                    {% if forloop.counter != 1 %}        
+
+                                        <div class="mn-list">
+                                            <div class="mn-img">
+                                                <img src="{{ new.image.url }}" />
+                                            </div>
+                                            <div class="mn-content">
+                                                <a class="mn-title" href="{% url 'home:detail' new.id %}">{{ new.title }}</a>
+                                                <a class="mn-title" href="">views: {{ new.views }} </a>
+
+                                                <a class="mn-date" href=""><i class="far fa-clock"></i>{{new.updated_at}}</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                    </div>
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="sidebar">
+                            <div class="sidebar-widget">
+                                <h2><i class="fas fa-align-justify"></i>Category</h2>
+                                <div class="category">
+                                    <ul class="fa-ul">
+                                        {% for category in kategoriyalar %}
+                                        <li>
+                                            <span class="fa-li"><i class="far fa-arrow-alt-circle-right"></i>
+                                            </span>
+                                                <a href="{% url 'home:category_list' category.id %}">
+                                                {{category.name}}  
+                                               
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="sidebar-widget">
+                                <h2><i class="fas fa-align-justify"></i>Tags</h2>
+                                <div class="tags">
+                                    {% for tag in tags %}
+                                        <a href="">{{tag.name}}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="sidebar-widget">
+                                {% if ads_one %}
+                                        <div class="image">
+                                            <a href="{{ ads_one.link }}"><img src="{{ ads_one.image.url }}" alt="Image"></a>
+                                        </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="sidebar-widget">
+                                <div class="image">
+                                    <div class="row">
+                                        {% if ads_two %}
+                                        {% for ads in ads_two %}
+                                                <div class="col-sm-6">
+                                                    {{ ads.link }}
+                                                    <a href="{{ ads.link }}"><img src="{{ ads.image.url }}" alt="Image"></a>
+                                                </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main News End-->
+
+{% endblock content %}
